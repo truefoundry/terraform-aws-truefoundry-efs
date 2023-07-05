@@ -6,7 +6,7 @@ resource "aws_iam_policy" "efs" {
 # https://github.com/kubernetes-sigs/aws-efs-csi-driver/blob/master/docs/iam-policy-example.json
 data "aws_iam_policy_document" "efs" {
   statement {
-    effect  = "Allow"
+    effect = "Allow"
     actions = [
       "elasticfilesystem:DescribeAccessPoints",
       "elasticfilesystem:DescribeFileSystems",
@@ -18,7 +18,7 @@ data "aws_iam_policy_document" "efs" {
     ]
   }
   statement {
-    effect  = "Allow"
+    effect = "Allow"
     actions = [
       "elasticfilesystem:DeleteAccessPoint"
     ]
@@ -32,7 +32,7 @@ data "aws_iam_policy_document" "efs" {
     }
   }
   statement {
-    effect  = "Allow"
+    effect = "Allow"
     actions = [
       "elasticfilesystem:TagResource"
     ]
@@ -46,7 +46,7 @@ data "aws_iam_policy_document" "efs" {
     }
   }
   statement {
-    effect  = "Allow"
+    effect = "Allow"
     actions = [
       "elasticfilesystem:CreateAccessPoint",
     ]
@@ -71,7 +71,7 @@ module "efs" {
   security_group_description = "${var.cluster_name} EFS"
   security_group_vpc_id      = var.vpc_id
   attach_policy              = false
-  security_group_rules       = {
+  security_group_rules = {
     vpc = {
       # relying on the defaults provdied for EFS/NFS (2049/TCP + ingress)
       description = "NFS ingress from VPC private subnets"
