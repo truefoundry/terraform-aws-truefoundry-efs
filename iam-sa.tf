@@ -6,7 +6,7 @@ data "aws_eks_cluster" "cluster" {
 
 module "iam_assumable_role_admin" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
-  version = "~> 4.17"
+  version = "5.27.0"
 
   create_role  = true
   role_name    = "${var.cluster_name}-efs"

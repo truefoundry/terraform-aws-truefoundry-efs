@@ -71,6 +71,8 @@ module "efs" {
   security_group_description = "${var.cluster_name} EFS"
   security_group_vpc_id      = var.vpc_id
   attach_policy              = false
+  throughput_mode            = var.throughput_mode
+  performance_mode           = var.performance_mode
   security_group_rules = {
     vpc = {
       # relying on the defaults provdied for EFS/NFS (2049/TCP + ingress)

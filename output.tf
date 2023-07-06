@@ -10,6 +10,6 @@ output "efs_security_group_id" {
   value = module.efs.security_group_id
 }
 
-output "iam_role_arn" {
+output "efs_role_arn" {
   value = module.iam_assumable_role_admin.iam_role_arn
 }
