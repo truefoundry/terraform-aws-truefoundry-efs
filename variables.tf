@@ -34,6 +34,26 @@ variable "k8s_service_account_namespace" {
   type        = string
 }
 
+variable "throughput_mode" {
+  description = "the throughput mode for EFS"
+  type        = string
+  validation {
+    condition = contains(["elastic", "provisioned", "bursting"], var.throughput_mode)
+
+    error_message = "Valid values for throughput mode for EFS are (elastic, provisioned, bursting)."
+  }
+}
+
+variable "performance_mode" {
+  description = "the performance mode for EFS"
+  type        = string
+  validation {
+    condition = contains(["maxIO", "generalPurpose"], var.performance_mode)
+
+    error_message = "Valid values for performance mode for EFS are (maxIO, generalPurpose)."
+  }
+}
+
 variable "cluster_oidc_issuer_url" {
   description = "The oidc url of the eks cluster"
   type        = string
