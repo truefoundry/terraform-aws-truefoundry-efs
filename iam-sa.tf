@@ -1,9 +1,4 @@
 # From https://github.com/terraform-aws-modules/terraform-aws-eks/blob/master/examples/irsa/irsa.tf
-
-data "aws_eks_cluster" "cluster" {
-  name = var.cluster_name
-}
-
 module "iam_assumable_role_admin" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
   version = "5.27.0"
@@ -18,4 +13,5 @@ module "iam_assumable_role_admin" {
   role_policy_arns = [
     aws_iam_policy.efs.arn
   ]
+  tags = local.tags
 }
