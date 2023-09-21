@@ -2,7 +2,7 @@ resource "aws_iam_policy" "efs" {
   name_prefix = "${var.cluster_name}-access-to-efs"
   description = "EFS Access policy for cluster"
   policy      = data.aws_iam_policy_document.efs.json
-  tags = local.tags
+  tags        = local.tags
 }
 # https://github.com/kubernetes-sigs/aws-efs-csi-driver/blob/master/docs/iam-policy-example.json
 data "aws_iam_policy_document" "efs" {
