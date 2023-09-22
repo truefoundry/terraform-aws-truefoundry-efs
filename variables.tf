@@ -64,8 +64,3 @@ variable "tags" {
   default     = {}
   description = "AWS Tags common to all the resources created"
 }
-
-variable "account_name" {
-  description = "AWS Account Name"
-  type        = string
-}
