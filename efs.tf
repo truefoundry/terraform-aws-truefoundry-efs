@@ -68,10 +68,10 @@ module "efs" {
 
   name = "${var.cluster_name}-efs"
 
-  mount_targets              = { for k, v in zipmap(var.azs, var.private_subnets_id) : k => { subnet_id = v } }
-  security_group_description = "${var.cluster_name} EFS"
-  security_group_vpc_id      = var.vpc_id
-  attach_policy              = true
+  mount_targets                      = { for k, v in zipmap(var.azs, var.private_subnets_id) : k => { subnet_id = v } }
+  security_group_description         = "${var.cluster_name} EFS"
+  security_group_vpc_id              = var.vpc_id
+  attach_policy                      = true
   bypass_policy_lockout_safety_check = false
   policy_statements = [
     {
@@ -90,8 +90,8 @@ module "efs" {
       }]
     }
   ]
-  throughput_mode            = var.throughput_mode
-  performance_mode           = var.performance_mode
+  throughput_mode  = var.throughput_mode
+  performance_mode = var.performance_mode
   security_group_rules = {
     vpc = {
       # relying on the defaults provdied for EFS/NFS (2049/TCP + ingress)
