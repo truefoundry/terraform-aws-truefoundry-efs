@@ -59,6 +59,11 @@ variable "cluster_oidc_issuer_url" {
   type        = string
 }
 
+variable "efs_node_iam_role_arn" {
+  description = "The node IAM role ARN being used by the EFS daemonset"
+  type        = string
+}
+
 variable "tags" {
   type        = map(string)
   default     = {}
