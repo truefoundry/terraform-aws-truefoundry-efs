@@ -71,7 +71,25 @@ module "efs" {
   mount_targets              = { for k, v in zipmap(var.azs, var.private_subnets_id) : k => { subnet_id = v } }
   security_group_description = "${var.cluster_name} EFS"
   security_group_vpc_id      = var.vpc_id
-  attach_policy              = false
+  attach_policy              = true
+  bypass_policy_lockout_safety_check = false
+  policy_statements = [
+    {
+      sid     = "EFS-CSI-Driver-Access"
+      actions = ["elasticfilesystem:ClientMount", "elasticfilesystem:ClientWrite", "elasticfilesystem:ClientRootAccess"]
+      principals = [
+        {
+          type        = "AWS"
+          identifiers = [var.efs_node_iam_role_arn]
+        }
+      ]
+      conditions = [{
+        test     = "Bool"
+        values   = ["true"]
+        variable = "elasticfilesystem:AccessedViaMountTarget"
+      }]
+    }
+  ]
   throughput_mode            = var.throughput_mode
   performance_mode           = var.performance_mode
   security_group_rules = {
