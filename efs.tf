@@ -68,7 +68,7 @@ module "efs" {
 
   name = "${var.cluster_name}-efs"
 
-  mount_targets                      = { for k, v in zipmap(var.azs, var.private_subnets_id) : k => { subnet_id = v } }
+  mount_targets                      = local.mount_targets
   security_group_description         = "${var.cluster_name} EFS"
   security_group_vpc_id              = var.vpc_id
   attach_policy                      = true
