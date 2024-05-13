@@ -64,7 +64,7 @@ data "aws_iam_policy_document" "efs" {
 
 module "efs" {
   source  = "terraform-aws-modules/efs/aws"
-  version = "1.1.1"
+  version = "1.6.3"
 
   name = "${var.cluster_name}-efs"
 
@@ -90,8 +90,9 @@ module "efs" {
       }]
     }
   ]
-  throughput_mode  = var.throughput_mode
-  performance_mode = var.performance_mode
+  throughput_mode      = var.throughput_mode
+  performance_mode     = var.performance_mode
+  enable_backup_policy = var.enable_backup_policy
   security_group_rules = {
     vpc = {
       # relying on the defaults provdied for EFS/NFS (2049/TCP + ingress)

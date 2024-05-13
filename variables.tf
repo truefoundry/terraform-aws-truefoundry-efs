@@ -54,6 +54,12 @@ variable "performance_mode" {
   }
 }
 
+variable "enable_backup_policy" {
+  description = "Enable EFS backup policy"
+  type        = bool
+  default     = true
+}
+
 variable "cluster_oidc_issuer_url" {
   description = "The oidc url of the eks cluster"
   type        = string
