@@ -19,11 +19,6 @@ variable "private_subnets_cidrs" {
   type        = list(string)
 }
 
-variable "azs" {
-  description = "Availability Zones"
-  type        = list(string)
-}
-
 variable "k8s_service_account_name" {
   description = "The k8s efs service account name"
   type        = string

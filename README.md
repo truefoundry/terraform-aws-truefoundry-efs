@@ -34,7 +34,6 @@ Truefoundry AWS EFS Module
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_azs"></a> [azs](#input\_azs) | Availability Zones | `list(string)` | n/a | yes |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | EKS Cluster Name | `string` | n/a | yes |
 | <a name="input_cluster_oidc_issuer_url"></a> [cluster\_oidc\_issuer\_url](#input\_cluster\_oidc\_issuer\_url) | The oidc url of the eks cluster | `string` | n/a | yes |
 | <a name="input_efs_node_iam_role_arn"></a> [efs\_node\_iam\_role\_arn](#input\_efs\_node\_iam\_role\_arn) | The node IAM role ARN being used by the EFS daemonset | `string` | n/a | yes |
