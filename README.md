@@ -19,15 +19,17 @@ Truefoundry AWS EFS Module
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_efs"></a> [efs](#module\_efs) | terraform-aws-modules/efs/aws | 1.6.3 |
+| <a name="module_efs"></a> [efs](#module\_efs) | cloudposse/efs/aws | 1.1.0 |
 | <a name="module_iam_assumable_role_admin"></a> [iam\_assumable\_role\_admin](#module\_iam\_assumable\_role\_admin) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 5.27.0 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
+| [aws_efs_file_system_policy.policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/efs_file_system_policy) | resource |
 | [aws_iam_policy.efs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy_document.efs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.efs_file_system_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_subnet.selected](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet) | data source |
 
 ## Inputs
@@ -43,6 +45,7 @@ Truefoundry AWS EFS Module
 | <a name="input_performance_mode"></a> [performance\_mode](#input\_performance\_mode) | the performance mode for EFS | `string` | n/a | yes |
 | <a name="input_private_subnets_cidrs"></a> [private\_subnets\_cidrs](#input\_private\_subnets\_cidrs) | List of CIDR of private subnets | `list(string)` | n/a | yes |
 | <a name="input_private_subnets_id"></a> [private\_subnets\_id](#input\_private\_subnets\_id) | List of IDs of private subnets | `list(string)` | n/a | yes |
+| <a name="input_region"></a> [region](#input\_region) | The region where the EFS will be provisioned | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | AWS Tags common to all the resources created | `map(string)` | `{}` | no |
 | <a name="input_throughput_mode"></a> [throughput\_mode](#input\_throughput\_mode) | the throughput mode for EFS | `string` | n/a | yes |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | ID of the VPC where the cluster and its nodes will be provisioned | `string` | `null` | no |
