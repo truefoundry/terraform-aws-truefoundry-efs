@@ -70,3 +70,8 @@ variable "tags" {
   default     = {}
   description = "AWS Tags common to all the resources created"
 }
+
+variable "region" {
+  description = "The region where the EFS will be provisioned"
+  type        = string
+}
