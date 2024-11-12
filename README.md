@@ -43,7 +43,7 @@ Truefoundry AWS EFS Module
 | <a name="input_k8s_service_account_namespace"></a> [k8s\_service\_account\_namespace](#input\_k8s\_service\_account\_namespace) | The k8s efs namespace | `string` | n/a | yes |
 | <a name="input_performance_mode"></a> [performance\_mode](#input\_performance\_mode) | the performance mode for EFS | `string` | n/a | yes |
 | <a name="input_private_subnets_cidrs"></a> [private\_subnets\_cidrs](#input\_private\_subnets\_cidrs) | List of CIDR of private subnets | `list(string)` | n/a | yes |
-| <a name="input_private_subnets_id"></a> [private\_subnets\_id](#input\_private\_subnets\_id) | List of IDs of private subnets | `list(string)` | n/a | yes |
+| <a name="input_private_subnets_id"></a> [private\_subnets\_id](#input\_private\_subnets\_id) | List of private subnet IDs | `list(string)` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | The region where the EFS will be provisioned | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | AWS Tags common to all the resources created | `map(string)` | `{}` | no |
 | <a name="input_throughput_mode"></a> [throughput\_mode](#input\_throughput\_mode) | the throughput mode for EFS | `string` | n/a | yes |
