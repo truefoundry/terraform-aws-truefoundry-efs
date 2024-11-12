@@ -100,10 +100,9 @@ module "efs" {
 
   security_group_description         = "${var.cluster_name} EFS"
   bypass_policy_lockout_safety_check = false
-  # efs_file_system_policy             = data.aws_iam_policy_document.efs_file_system_policy.json
-  throughput_mode           = var.throughput_mode
-  performance_mode          = var.performance_mode
-  efs_backup_policy_enabled = var.enable_backup_policy
+  throughput_mode                    = var.throughput_mode
+  performance_mode                   = var.performance_mode
+  efs_backup_policy_enabled          = var.enable_backup_policy
 
   tags = merge(
     local.tags
