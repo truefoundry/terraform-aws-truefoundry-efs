@@ -5,7 +5,7 @@ resource "aws_iam_policy" "efs" {
   tags        = local.tags
 }
 
-resource "aws_efs_file_system_policy" "policy" {
+resource "aws_efs_file_system_policy" "this" {
   file_system_id                     = module.efs.id
   bypass_policy_lockout_safety_check = false
   policy                             = data.aws_iam_policy_document.efs_file_system_policy.json
@@ -90,9 +90,10 @@ module "efs" {
   source  = "cloudposse/efs/aws"
   version = "1.1.0"
 
-  region  = var.region
-  vpc_id  = var.vpc_id
-  subnets = var.private_subnets_id
+  region           = var.region
+  vpc_id           = var.vpc_id
+  subnets          = var.private_subnets_id
+  allow_all_egress = false
 
   allowed_cidr_blocks   = var.private_subnets_cidrs
   create_security_group = true
