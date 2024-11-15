@@ -10,7 +10,7 @@ variable "vpc_id" {
 }
 
 variable "private_subnets_id" {
-  description = "List of IDs of private subnets"
+  description = "List of private subnet IDs"
   type        = list(string)
 }
 
@@ -69,4 +69,9 @@ variable "tags" {
   type        = map(string)
   default     = {}
   description = "AWS Tags common to all the resources created"
+}
+
+variable "region" {
+  description = "The region where the EFS will be provisioned"
+  type        = string
 }
