@@ -71,7 +71,6 @@ data "aws_iam_policy_document" "efs" {
 # EFS file system policy
 data "aws_iam_policy_document" "efs_file_system_policy" {
   statement {
-    sid     = "EFS-CSI-Driver-Access"
     effect  = "Allow"
     actions = ["elasticfilesystem:ClientMount", "elasticfilesystem:ClientWrite", "elasticfilesystem:ClientRootAccess"]
     principals {
