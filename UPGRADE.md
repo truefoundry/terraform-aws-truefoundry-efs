@@ -1,8 +1,8 @@
 # Upgrade Guide
 
-This guide helps you upgrade the EFS module from version v0.3.5 and below to newer versions.
+This guide will help you to migrate your terraform code across versions. Keeping your terraform state to the latest version is always recommeneded
 
-## From v0.3.5 to v0.4.0
+## 0.3.x to 0.4.x
 
 ### Breaking Changes
 
@@ -10,42 +10,26 @@ This guide helps you upgrade the EFS module from version v0.3.5 and below to new
 
 ### Required Actions
 
-1. First, create a backup of your terraform state:
-
-```bash
-# For local state
-terraform state pull > terraform.tfstate.backup.$(date +%Y%m%d_%H%M%S)
-```
-
-2. Before running `terraform plan`, you need to migrate the state of the EFS resources to prevent destruction and recreation. Execute the following commands in order:
-
-```bash
-# Move EFS file system
-terraform state mv 'module.efs.module.efs.aws_efs_file_system.default[0]' 'module.efs.module.efs.aws_efs_file_system.this[0]'
-
-# Move mount targets
-terraform state mv 'module.efs.module.efs.aws_efs_mount_target.default[0]' 'module.efs.module.efs.aws_efs_mount_target.this[0]'
-terraform state mv 'module.efs.module.efs.aws_efs_mount_target.default[1]' 'module.efs.module.efs.aws_efs_mount_target.this[1]'
-terraform state mv 'module.efs.module.efs.aws_efs_mount_target.default[2]' 'module.efs.module.efs.aws_efs_mount_target.this[2]'
-
-# Move file system policy
-terraform state mv 'module.efs.aws_efs_file_system_policy.default' 'module.efs.aws_efs_file_system_policy.this'
-
-# Move backup policy
-terraform state mv 'module.efs.module.efs.aws_efs_backup_policy.default[0]' 'module.efs.module.efs.aws_efs_backup_policy.policy[0]'
-
-### Verification Steps
-
-1. Run all the state move commands mentioned above
-2. Execute `terraform plan`
-3. Verify that the plan does not show destruction of any EFS resources
-4. The plan should only show changes related to the resource name changes
-5. If the plan shows EFS resource destruction, DO NOT APPLY and review the state migration steps
-
-### Notes
-
-- Always backup your Terraform state before performing any state migrations
-- Test these changes in a non-production environment first
-- If you encounter any issues during the upgrade, please refer to the module documentation or open an issue in the repository
-- Make sure to execute the state move commands in the order specified above
-- If you have a different number of mount targets, adjust the mount target migration commands accordingly
+1. Ensure that you are running on the latest version of 0.3.x which is [0.3.5](https://github.com/truefoundry/terraform-aws-truefoundry-efs/releases/tag/v0.3.5)
+2. Move to version `0.4.0` and run the following command
+   ```shell
+   terraform init -upgrade
+   ```
+3. Run the following commands to do the migration. Depending upon your availability zones migrate the list indices. For example if you have 3 AZs, then you list indicies should be from 0-2. Below is an example for 4 AZs in `us-east-1` region. Change them according to your region and AZs.
+   ```shell
+    terraform state mv 'module.efs.aws_efs_file_system.this[0]' 'module.efs.aws_efs_file_system.default[0]'
+    terraform state mv 'module.efs.aws_efs_backup_policy.this[0]' 'module.efs.aws_efs_backup_policy.policy[0]'
+    terraform state mv 'module.efs.aws_efs_file_system_policy.this[0]' 'aws_efs_file_system_policy.this'
+    terraform state mv 'module.efs.aws_efs_mount_target.this["us-east-1a"]' 'module.efs.aws_efs_mount_target.default[0]'
+    terraform state mv 'module.efs.aws_efs_mount_target.this["us-east-1b"]' 'module.efs.aws_efs_mount_target.default[1]'
+    terraform state mv 'module.efs.aws_efs_mount_target.this["us-east-1c"]' 'module.efs.aws_efs_mount_target.default[2]'
+    terraform state mv 'module.efs.aws_efs_mount_target.this["us-east-1d"]' 'module.efs.aws_efs_mount_target.default[3]'
+   ```
+4. Run the plan to check if the filesystem is not destroyed or re-created. Security groups and mount targets can be destroyed or re-created and won't impact your data.
+   ```shell
+   terraform plan
+   ```
+5. Run the apply
+   ```shell
+   terraform apply
+   ```
