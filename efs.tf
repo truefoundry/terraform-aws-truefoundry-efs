@@ -82,6 +82,7 @@ data "aws_iam_policy_document" "efs_file_system_policy" {
       values   = ["true"]
       variable = "elasticfilesystem:AccessedViaMountTarget"
     }
+    resources = [module.efs.arn]
   }
 }
 
