@@ -1,5 +1,6 @@
 # From https://github.com/terraform-aws-modules/terraform-aws-eks/blob/master/examples/irsa/irsa.tf
 module "iam_assumable_role_admin" {
+  count   = var.create_efs_iam_role ? 1 : 0
   source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
   version = "5.27.0"
 
@@ -11,7 +12,13 @@ module "iam_assumable_role_admin" {
   ]
 
   role_policy_arns = [
-    aws_iam_policy.efs.arn
+    aws_iam_policy.efs[0].arn
   ]
   tags = local.tags
+  
+}
+
+moved {
+  from = module.iam_assumable_role_admin
+  to = module.iam_assumable_role_admin[0]
 }

@@ -1,4 +1,5 @@
 resource "aws_iam_policy" "efs" {
+  count       = var.create_efs_iam_role ? 1 : 0
   name_prefix = "${var.cluster_name}-access-to-efs"
   description = "EFS Access policy for cluster"
   policy      = data.aws_iam_policy_document.efs.json
@@ -108,4 +109,9 @@ module "efs" {
   tags = merge(
     local.tags
   )
+}
+
+moved {
+  from =  aws_iam_policy.efs
+  to = aws_iam_policy.efs[0]
 }
