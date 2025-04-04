@@ -15,10 +15,10 @@ module "iam_assumable_role_admin" {
     aws_iam_policy.efs[0].arn
   ]
   tags = local.tags
-  
+
 }
 
 moved {
   from = module.iam_assumable_role_admin
-  to = module.iam_assumable_role_admin[0]
+  to   = module.iam_assumable_role_admin[0]
 }

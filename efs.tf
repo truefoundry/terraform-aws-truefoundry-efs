@@ -112,6 +112,6 @@ module "efs" {
 }
 
 moved {
-  from =  aws_iam_policy.efs
-  to = aws_iam_policy.efs[0]
+  from = aws_iam_policy.efs
+  to   = aws_iam_policy.efs[0]
 }
