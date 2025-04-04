@@ -37,8 +37,10 @@ Truefoundry AWS EFS Module
 |------|-------------|------|---------|:--------:|
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | EKS Cluster Name | `string` | n/a | yes |
 | <a name="input_cluster_oidc_issuer_url"></a> [cluster\_oidc\_issuer\_url](#input\_cluster\_oidc\_issuer\_url) | The oidc url of the eks cluster | `string` | n/a | yes |
+| <a name="input_create_efs_iam_role"></a> [create\_efs\_iam\_role](#input\_create\_efs\_iam\_role) | Enable/disable creation of IAM role for EFS | `bool` | `true` | no |
 | <a name="input_efs_node_iam_role_arn"></a> [efs\_node\_iam\_role\_arn](#input\_efs\_node\_iam\_role\_arn) | The node IAM role ARN being used by the EFS daemonset | `string` | n/a | yes |
 | <a name="input_enable_backup_policy"></a> [enable\_backup\_policy](#input\_enable\_backup\_policy) | Enable EFS backup policy | `bool` | `true` | no |
+| <a name="input_existing_efs_iam_role_arn"></a> [existing\_efs\_iam\_role\_arn](#input\_existing\_efs\_iam\_role\_arn) | ARN of the existing EFS IAM role. This will be used only when create\_efs\_iam\_role is set to false | `string` | `""` | no |
 | <a name="input_k8s_service_account_name"></a> [k8s\_service\_account\_name](#input\_k8s\_service\_account\_name) | The k8s efs service account name | `string` | n/a | yes |
 | <a name="input_k8s_service_account_namespace"></a> [k8s\_service\_account\_namespace](#input\_k8s\_service\_account\_namespace) | The k8s efs namespace | `string` | n/a | yes |
 | <a name="input_performance_mode"></a> [performance\_mode](#input\_performance\_mode) | the performance mode for EFS | `string` | n/a | yes |

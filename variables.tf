@@ -19,6 +19,18 @@ variable "private_subnets_cidrs" {
   type        = list(string)
 }
 
+variable "create_efs_iam_role" {
+  description = "Enable/disable creation of IAM role for EFS"
+  type        = bool
+  default     = true
+}
+
+variable "existing_efs_iam_role_arn" {
+  description = "ARN of the existing EFS IAM role. This will be used only when create_efs_iam_role is set to false"
+  type        = string
+  default     = ""
+}
+
 variable "k8s_service_account_name" {
   description = "The k8s efs service account name"
   type        = string
@@ -33,8 +45,7 @@ variable "throughput_mode" {
   description = "the throughput mode for EFS"
   type        = string
   validation {
-    condition = contains(["elastic", "provisioned", "bursting"], var.throughput_mode)
-
+    condition     = contains(["elastic", "provisioned", "bursting"], var.throughput_mode)
     error_message = "Valid values for throughput mode for EFS are (elastic, provisioned, bursting)."
   }
 }
@@ -43,8 +54,7 @@ variable "performance_mode" {
   description = "the performance mode for EFS"
   type        = string
   validation {
-    condition = contains(["maxIO", "generalPurpose"], var.performance_mode)
-
+    condition     = contains(["maxIO", "generalPurpose"], var.performance_mode)
     error_message = "Valid values for performance mode for EFS are (maxIO, generalPurpose)."
   }
 }
