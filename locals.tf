@@ -7,28 +7,38 @@ locals {
     },
     var.tags
   )
-  # Create a map of AZ to subnet ID, ensuring only one subnet per AZ
-  # Group subnets by availability zone
-  subnets_by_az = {
-    for subnet_id, subnet_data in data.aws_subnet.efs_subnets :
-    subnet_data.availability_zone => subnet_id...
+
+  # Get unique AZs from provided subnets
+  subnet_azs = distinct([
+    for subnet_id, subnet in data.aws_subnet.private : subnet.availability_zone
+  ])
+
+  # Create AZ to subnet mapping (first subnet found in each AZ)
+  az_to_subnet = {
+    for az in local.subnet_azs : az => [
+      for subnet_id, subnet in data.aws_subnet.private : subnet_id
+      if subnet.availability_zone == az
+    ][0]
   }
 
-  # Select the first subnet from each AZ for EFS mount targets
-  efs_subnets = [
-    for az, subnet_ids in local.subnets_by_az :
-    subnet_ids[0]
-  ]
+  # Extract the subnet IDs for EFS (one per AZ)
+  efs_subnets = values(local.az_to_subnet)
 
-  # Get CIDR blocks for the selected EFS subnets
+  # Get corresponding CIDR blocks for security groups
   efs_subnet_cidrs = [
     for subnet_id in local.efs_subnets :
-    data.aws_subnet.efs_subnets[subnet_id].cidr_block
+    data.aws_subnet.private[subnet_id].cidr_block
   ]
 }
+
 # Get subnet information to determine their availability zones
-data "aws_subnet" "efs_subnets" {
+data "aws_subnet" "private" {
   for_each = toset(var.private_subnets_id)
   id       = each.value
+}
+
+# Get available AZs
+data "aws_availability_zones" "available" {
+  state = "available"
 }
 

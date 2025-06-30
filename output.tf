@@ -23,8 +23,5 @@ output "efs_selected_subnets" {
 # Output to show the mapping of AZ to selected subnet
 output "efs_subnets_by_az" {
   description = "Mapping of availability zones to selected subnet IDs for EFS"
-  value = {
-    for subnet_id in local.efs_subnets :
-    data.aws_subnet.efs_subnets[subnet_id].availability_zone => subnet_id
-  }
+  value       = local.az_to_subnet
 }
