@@ -1,6 +1,19 @@
 # terraform-aws-truefoundry-efs
+
 Truefoundry AWS EFS Module
 
+## Important: Subnet Handling for EFS
+
+This module automatically handles the AWS EFS limitation where **only one mount target can exist per Availability Zone**.
+
+### Solution
+
+The module implements intelligent subnet filtering:
+
+1. **Data Collection**: Uses `data.aws_subnet` to gather information about all provided subnets
+2. **AZ Grouping**: Groups subnets by their availability zones
+3. **Subnet Selection**: Automatically selects the first subnet from each AZ for EFS mount targets
+4. **CIDR Mapping**: Maps the selected subnets to their corresponding CIDR blocks for security group rules
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
