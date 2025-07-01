@@ -41,9 +41,3 @@ data "aws_subnet" "private" {
   for_each = toset(var.private_subnets_id)
   id       = each.value
 }
-
-# Get available AZs
-data "aws_availability_zones" "available" {
-  state = "available"
-}
-
