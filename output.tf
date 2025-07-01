@@ -19,9 +19,3 @@ output "efs_selected_subnets" {
   description = "Subnets selected for EFS mount targets (one per AZ)"
   value       = local.efs_subnets
 }
-
-# Output to show the mapping of AZ to selected subnet
-output "efs_subnets_by_az" {
-  description = "Mapping of availability zones to selected subnet IDs for EFS"
-  value       = local.az_to_subnet
-}
