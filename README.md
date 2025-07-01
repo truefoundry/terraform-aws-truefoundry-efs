@@ -1,6 +1,18 @@
 # terraform-aws-truefoundry-efs
+
 Truefoundry AWS EFS Module
 
+## Important: Subnet Handling for EFS
+
+This module automatically handles the AWS EFS limitation where **only one mount target can exist per Availability Zone**.
+
+### Solution
+
+The module implements intelligent subnet filtering:
+
+1. **Data Collection**: Uses `data.aws_subnet` to gather information about all provided subnets
+2. **AZ Grouping**: Groups subnets by their availability zones
+3. **Subnet Selection**: Automatically selects the first subnet from each AZ for EFS mount targets
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
@@ -30,6 +42,7 @@ Truefoundry AWS EFS Module
 | [aws_iam_policy.efs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy_document.efs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.efs_file_system_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_subnet.private](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet) | data source |
 
 ## Inputs
 
@@ -59,4 +72,5 @@ Truefoundry AWS EFS Module
 | <a name="output_efs_id"></a> [efs\_id](#output\_efs\_id) | n/a |
 | <a name="output_efs_role_arn"></a> [efs\_role\_arn](#output\_efs\_role\_arn) | n/a |
 | <a name="output_efs_security_group_id"></a> [efs\_security\_group\_id](#output\_efs\_security\_group\_id) | n/a |
+| <a name="output_efs_selected_subnets"></a> [efs\_selected\_subnets](#output\_efs\_selected\_subnets) | Subnets selected for EFS mount targets (one per AZ) |
 <!-- END_TF_DOCS -->

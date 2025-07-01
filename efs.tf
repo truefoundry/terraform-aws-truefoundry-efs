@@ -87,13 +87,15 @@ data "aws_iam_policy_document" "efs_file_system_policy" {
   }
 }
 
+# EFS Module - using filtered subnets to ensure only one subnet per AZ
+# This prevents mount target creation failures when multiple subnets exist in the same AZ
 module "efs" {
   source  = "cloudposse/efs/aws"
   version = "1.1.0"
 
   region           = var.region
   vpc_id           = var.vpc_id
-  subnets          = var.private_subnets_id
+  subnets          = local.efs_subnets
   allow_all_egress = false
 
   allowed_cidr_blocks   = var.private_subnets_cidrs
