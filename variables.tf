@@ -13,6 +13,12 @@ variable "private_subnets_id" {
   description = "List of private subnet IDs"
   type        = list(string)
 }
+
+variable "private_subnets_cidrs" {
+  description = "List of CIDR of private subnets"
+  type        = list(string)
+}
+
 variable "create_efs_iam_role" {
   description = "Enable/disable creation of IAM role for EFS"
   type        = bool

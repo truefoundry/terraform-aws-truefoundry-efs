@@ -8,27 +8,32 @@ locals {
     var.tags
   )
 
-  # Get unique AZs from provided subnets
-  subnet_azs = distinct([
-    for subnet_id, subnet in data.aws_subnet.private : subnet.availability_zone
-  ])
+  # ============================================================================
+  # EFS SUBNET SELECTION LOGIC
+  # ============================================================================
+  # PROBLEM: EFS requires exactly one mount target per AZ, but users may provide
+  # multiple subnets in the same AZ. We need to consistently select the same 
+  # subnet for each AZ, even when new subnets are added to the input list.
+  #
+  # SOLUTION: Always use the FIRST subnet from the input list for each AZ.
+  # This ensures that adding new subnets doesn't change existing mount targets.
+  # ============================================================================
 
-  # Create AZ to subnet mapping (first subnet found in each AZ)
+  # Create a mapping: AZ -> first subnet ID from input list for that AZ
+  # We iterate through var.private_subnets_id in order and use index position
+  # to ensure we always pick the first occurrence of each AZ
   az_to_subnet = {
-    for az in local.subnet_azs : az => [
-      for subnet_id, subnet in data.aws_subnet.private : subnet_id
-      if subnet.availability_zone == az
-    ][0]
+    for i, subnet_id in var.private_subnets_id :
+    data.aws_subnet.private[subnet_id].availability_zone => subnet_id
+    if !contains([
+      # Check all previous subnets to see if we've seen this AZ before
+      for j in range(i) :
+      data.aws_subnet.private[var.private_subnets_id[j]].availability_zone
+    ], data.aws_subnet.private[subnet_id].availability_zone)
   }
 
-  # Extract the subnet IDs for EFS (one per AZ)
+  # Extract the subnet IDs for EFS (one per AZ, maintaining input order)
   efs_subnets = values(local.az_to_subnet)
-
-  # Get corresponding CIDR blocks for security groups
-  efs_subnet_cidrs = [
-    for subnet_id in local.efs_subnets :
-    data.aws_subnet.private[subnet_id].cidr_block
-  ]
 }
 
 # Get subnet information to determine their availability zones

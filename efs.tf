@@ -98,7 +98,7 @@ module "efs" {
   subnets          = local.efs_subnets
   allow_all_egress = false
 
-  allowed_cidr_blocks   = local.efs_subnet_cidrs
+  allowed_cidr_blocks   = var.private_subnets_cidrs
   create_security_group = true
   name                  = "${var.cluster_name}-efs"
 
