@@ -75,5 +75,4 @@ The module implements intelligent subnet filtering:
 | <a name="output_efs_role_arn"></a> [efs\_role\_arn](#output\_efs\_role\_arn) | n/a |
 | <a name="output_efs_security_group_id"></a> [efs\_security\_group\_id](#output\_efs\_security\_group\_id) | n/a |
 | <a name="output_efs_selected_subnets"></a> [efs\_selected\_subnets](#output\_efs\_selected\_subnets) | Subnets selected for EFS mount targets (one per AZ) |
-| <a name="output_efs_subnets_by_az"></a> [efs\_subnets\_by\_az](#output\_efs\_subnets\_by\_az) | Mapping of availability zones to selected subnet IDs for EFS |
 <!-- END_TF_DOCS -->
