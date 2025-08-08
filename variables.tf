@@ -44,14 +44,14 @@ variable "create_efs_iam_role" {
   default     = true
 }
 
-variable "efs_iam_role_name_enable_override" {
+variable "efs_iam_role_enable_override" {
   description = "Enable/disable override of the EFS IAM role name. When enabled, the EFS IAM role name will be set to the value of efs_iam_role_override_name"
   type        = bool
   default     = false
 }
 
 variable "efs_iam_role_override_name" {
-  description = "The name of the EFS IAM role. This will be used only when efs_iam_role_name_enable_override is set to true"
+  description = "The name of the EFS IAM role. This will be used only when efs_iam_role_enable_override is set to true"
   type        = string
   default     = ""
 }

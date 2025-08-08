@@ -5,7 +5,7 @@ module "iam_assumable_role_admin" {
   version = "5.27.0"
 
   create_role  = true
-  role_name    = var.efs_iam_role_name_enable_override ? var.efs_iam_role_override_name : "${var.cluster_name}-efs"
+  role_name    = var.efs_iam_role_enable_override ? var.efs_iam_role_override_name : "${var.cluster_name}-efs"
   provider_url = replace(var.cluster_oidc_issuer_url, "https://", "")
   oidc_fully_qualified_subjects = [
     "system:serviceaccount:${var.k8s_service_account_namespace}:${var.k8s_service_account_name}"
