@@ -1,3 +1,7 @@
+################################################################################
+# Existing cluster
+################################################################################
+
 variable "cluster_name" {
   description = "EKS Cluster Name"
   type        = string
@@ -19,10 +23,49 @@ variable "private_subnets_cidrs" {
   type        = list(string)
 }
 
+variable "tags" {
+  type        = map(string)
+  default     = {}
+  description = "AWS Tags common to all the resources created"
+}
+
+variable "region" {
+  description = "The region where the EFS will be provisioned"
+  type        = string
+}
+
+################################################################################
+# EFS IAM role
+################################################################################
+
 variable "create_efs_iam_role" {
   description = "Enable/disable creation of IAM role for EFS"
   type        = bool
   default     = true
+}
+
+variable "efs_iam_role_name_enable_override" {
+  description = "Enable/disable override of the EFS IAM role name. When enabled, the EFS IAM role name will be set to the value of efs_iam_role_override_name"
+  type        = bool
+  default     = false
+}
+
+variable "efs_iam_role_override_name" {
+  description = "The name of the EFS IAM role. This will be used only when efs_iam_role_name_enable_override is set to true"
+  type        = string
+  default     = ""
+}
+
+variable "efs_iam_role_additional_policy_arns" {
+  description = "Additional policy ARNs to attach to the EFS IAM role"
+  type        = list(string)
+  default     = []
+}
+
+variable "efs_iam_role_permissions_boundary_arn" {
+  description = "ARN of the permissions boundary for the EFS IAM role"
+  type        = string
+  default     = ""
 }
 
 variable "existing_efs_iam_role_arn" {
@@ -40,6 +83,10 @@ variable "k8s_service_account_namespace" {
   description = "The k8s efs namespace"
   type        = string
 }
+
+################################################################################
+# EFS
+################################################################################
 
 variable "throughput_mode" {
   description = "the throughput mode for EFS"
@@ -72,16 +119,5 @@ variable "cluster_oidc_issuer_url" {
 
 variable "efs_node_iam_role_arn" {
   description = "The node IAM role ARN being used by the EFS daemonset"
-  type        = string
-}
-
-variable "tags" {
-  type        = map(string)
-  default     = {}
-  description = "AWS Tags common to all the resources created"
-}
-
-variable "region" {
-  description = "The region where the EFS will be provisioned"
   type        = string
 }
