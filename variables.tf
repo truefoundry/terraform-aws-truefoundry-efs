@@ -74,6 +74,31 @@ variable "existing_efs_iam_role_arn" {
   default     = ""
 }
 
+variable "create_efs_access_policy" {
+  description = "Enable/disable creation of EFS access policy"
+  type        = bool
+  default     = true
+}
+
+variable "existing_efs_access_policy_arn" {
+  description = "ARN of the existing EFS access policy. This will be used only when create_efs_iam_role is set to false"
+  type        = string
+  default     = ""
+}
+
+variable "efs_access_policy_enable_override" {
+  description = "Enable/disable override of the EFS access policy. When enabled, the EFS access policy will be set to the value of efs_access_policy_override_name"
+  type        = bool
+  default     = false
+}
+
+variable "efs_access_policy_override_name" {
+  description = "The name of the EFS access policy. This will be used only when efs_access_policy_enable_override is set to true"
+  type        = string
+  default     = ""
+}
+
+
 variable "k8s_service_account_name" {
   description = "The k8s efs service account name"
   type        = string
