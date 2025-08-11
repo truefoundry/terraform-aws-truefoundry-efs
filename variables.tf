@@ -146,3 +146,9 @@ variable "efs_node_iam_role_arn" {
   description = "The node IAM role ARN being used by the EFS daemonset"
   type        = string
 }
+
+variable "disable_default_tags" {
+  description = "Disable the default tag for the EFSs. Used in cases where only certain tags are allowed"
+  type        = bool
+  default     = false
+}
