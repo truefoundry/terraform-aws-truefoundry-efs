@@ -86,14 +86,14 @@ variable "existing_efs_access_policy_arn" {
   default     = ""
 }
 
-variable "efs_access_policy_enable_override" {
-  description = "Enable/disable override of the EFS access policy. When enabled, the EFS access policy will be set to the value of efs_access_policy_override_name"
+variable "efs_access_policy_prefix_enable_override" {
+  description = "Enable/disable override of the EFS access policy. When enabled, the EFS access policy will be set to the value of efs_access_policy_prefix_override_name"
   type        = bool
   default     = false
 }
 
-variable "efs_access_policy_override_name" {
-  description = "The name of the EFS access policy. This will be used only when efs_access_policy_enable_override is set to true"
+variable "efs_access_policy_prefix_override_name" {
+  description = "The name of the EFS access policy. This will be used only when efs_access_policy_prefix_enable_override is set to true"
   type        = string
   default     = ""
 }
