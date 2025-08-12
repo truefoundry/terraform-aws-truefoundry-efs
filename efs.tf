@@ -1,6 +1,6 @@
 resource "aws_iam_policy" "efs" {
-  count       = var.create_efs_iam_role ? 1 : 0
-  name_prefix = "${var.cluster_name}-access-to-efs"
+  count       = var.create_efs_iam_role && var.create_efs_access_policy ? 1 : 0
+  name_prefix = local.efs_access_policy_prefix
   description = "EFS Access policy for cluster"
   policy      = data.aws_iam_policy_document.efs.json
   tags        = local.tags
