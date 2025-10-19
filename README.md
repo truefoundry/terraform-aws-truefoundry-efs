@@ -19,7 +19,7 @@ Truefoundry AWS EFS Module
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_efs"></a> [efs](#module\_efs) | cloudposse/efs/aws | 1.1.0 |
+| <a name="module_efs"></a> [efs](#module\_efs) | cloudposse/efs/aws | 1.2.1 |
 | <a name="module_iam_assumable_role_admin"></a> [iam\_assumable\_role\_admin](#module\_iam\_assumable\_role\_admin) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 5.27.0 |
 
 ## Resources
@@ -46,6 +46,7 @@ Truefoundry AWS EFS Module
 | <a name="input_efs_iam_role_enable_override"></a> [efs\_iam\_role\_enable\_override](#input\_efs\_iam\_role\_enable\_override) | Enable/disable override of the EFS IAM role name. When enabled, the EFS IAM role name will be set to the value of efs\_iam\_role\_override\_name | `bool` | `false` | no |
 | <a name="input_efs_iam_role_override_name"></a> [efs\_iam\_role\_override\_name](#input\_efs\_iam\_role\_override\_name) | The name of the EFS IAM role. This will be used only when efs\_iam\_role\_enable\_override is set to true | `string` | `""` | no |
 | <a name="input_efs_iam_role_permissions_boundary_arn"></a> [efs\_iam\_role\_permissions\_boundary\_arn](#input\_efs\_iam\_role\_permissions\_boundary\_arn) | ARN of the permissions boundary for the EFS IAM role | `string` | `""` | no |
+| <a name="input_efs_kms_key_arn"></a> [efs\_kms\_key\_arn](#input\_efs\_kms\_key\_arn) | The KMS key ARN to use for EFS | `string` | `null` | no |
 | <a name="input_efs_node_iam_role_arn"></a> [efs\_node\_iam\_role\_arn](#input\_efs\_node\_iam\_role\_arn) | The node IAM role ARN being used by the EFS daemonset | `string` | n/a | yes |
 | <a name="input_enable_backup_policy"></a> [enable\_backup\_policy](#input\_enable\_backup\_policy) | Enable EFS backup policy | `bool` | `true` | no |
 | <a name="input_existing_efs_access_policy_arn"></a> [existing\_efs\_access\_policy\_arn](#input\_existing\_efs\_access\_policy\_arn) | ARN of the existing EFS access policy. This will be used only when create\_efs\_iam\_role is set to false | `string` | `""` | no |
