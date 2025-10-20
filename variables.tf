@@ -137,6 +137,13 @@ variable "enable_backup_policy" {
   default     = true
 }
 
+
+variable "efs_kms_key_arn" {
+  description = "The KMS key ARN to use for EFS"
+  type        = string
+  default     = null
+}
+
 variable "cluster_oidc_issuer_url" {
   description = "The oidc url of the eks cluster"
   type        = string

@@ -89,7 +89,7 @@ data "aws_iam_policy_document" "efs_file_system_policy" {
 
 module "efs" {
   source  = "cloudposse/efs/aws"
-  version = "1.1.0"
+  version = "1.2.1"
 
   region           = var.region
   vpc_id           = var.vpc_id
@@ -99,6 +99,7 @@ module "efs" {
   allowed_cidr_blocks   = var.private_subnets_cidrs
   create_security_group = true
   name                  = "${var.cluster_name}-efs"
+  kms_key_id            = var.efs_kms_key_arn
 
   security_group_description         = "${var.cluster_name} EFS"
   bypass_policy_lockout_safety_check = false
