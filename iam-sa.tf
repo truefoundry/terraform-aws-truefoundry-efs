@@ -13,7 +13,7 @@ module "iam_assumable_role_admin" {
   role_permissions_boundary_arn = var.efs_iam_role_permissions_boundary_arn
 
   role_policy_arns = concat([
-    var.create_efs_access_policy ? aws_iam_policy.efs[0].arn : var.existing_efs_access_policy_arn
+    var.create_efs_access_policy ? "arn:aws:iam::aws:policy/service-role/AmazonEFSCSIDriverPolicy" : var.existing_efs_access_policy_arn
     ],
     var.efs_iam_role_additional_policy_arns
   )

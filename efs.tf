@@ -1,72 +1,7 @@
-resource "aws_iam_policy" "efs" {
-  count       = var.create_efs_iam_role && var.create_efs_access_policy ? 1 : 0
-  name_prefix = local.efs_access_policy_prefix
-  description = "EFS Access policy for cluster"
-  policy      = data.aws_iam_policy_document.efs.json
-  tags        = local.tags
-}
-
 resource "aws_efs_file_system_policy" "this" {
   file_system_id                     = module.efs.id
   bypass_policy_lockout_safety_check = false
   policy                             = data.aws_iam_policy_document.efs_file_system_policy.json
-}
-
-
-# https://github.com/kubernetes-sigs/aws-efs-csi-driver/blob/master/docs/iam-policy-example.json
-data "aws_iam_policy_document" "efs" {
-  statement {
-    effect = "Allow"
-    actions = [
-      "elasticfilesystem:DescribeAccessPoints",
-      "elasticfilesystem:DescribeFileSystems",
-      "elasticfilesystem:DescribeMountTargets",
-      "ec2:DescribeAvailabilityZones"
-    ]
-    resources = ["*"]
-  }
-  statement {
-    effect = "Allow"
-    actions = [
-      "elasticfilesystem:DeleteAccessPoint"
-    ]
-    resources = [
-      "*"
-    ]
-    condition {
-      test     = "StringEquals"
-      values   = ["true"]
-      variable = "aws:ResourceTag/efs.csi.aws.com/cluster"
-    }
-  }
-  statement {
-    effect = "Allow"
-    actions = [
-      "elasticfilesystem:TagResource"
-    ]
-    resources = [
-      "*"
-    ]
-    condition {
-      test     = "StringLike"
-      values   = ["true"]
-      variable = "aws:ResourceTag/efs.csi.aws.com/cluster"
-    }
-  }
-  statement {
-    effect = "Allow"
-    actions = [
-      "elasticfilesystem:CreateAccessPoint",
-    ]
-    resources = [
-      "*"
-    ]
-    condition {
-      test     = "StringLike"
-      values   = ["true"]
-      variable = "aws:RequestTag/efs.csi.aws.com/cluster"
-    }
-  }
 }
 
 # EFS file system policy
