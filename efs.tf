@@ -14,6 +14,15 @@ resource "aws_efs_file_system_policy" "this" {
 
 
 # https://github.com/kubernetes-sigs/aws-efs-csi-driver/blob/master/docs/iam-policy-example.json
+#
+# AWS managed policy AmazonEFSCSIDriverPolicy restricts access point tags.
+# 
+# "Condition": {
+#     "ForAllValues:StringEquals": {
+#         "aws:TagKeys": "efs.csi.aws.com/cluster"
+#     }
+# }
+#
 data "aws_iam_policy_document" "efs" {
   statement {
     effect = "Allow"
