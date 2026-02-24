@@ -7,20 +7,20 @@ Truefoundry AWS EFS Module
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.4 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 5.57 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 6.33.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 5.57 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 6.33.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_efs"></a> [efs](#module\_efs) | cloudposse/efs/aws | 1.2.1 |
-| <a name="module_iam_assumable_role_admin"></a> [iam\_assumable\_role\_admin](#module\_iam\_assumable\_role\_admin) | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 5.27.0 |
+| <a name="module_efs"></a> [efs](#module\_efs) | cloudposse/efs/aws | 1.5.0 |
+| <a name="module_iam_assumable_role_admin"></a> [iam\_assumable\_role\_admin](#module\_iam\_assumable\_role\_admin) | terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts | 6.2.3 |
 
 ## Resources
 
@@ -36,16 +36,17 @@ Truefoundry AWS EFS Module
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | EKS Cluster Name | `string` | n/a | yes |
-| <a name="input_cluster_oidc_issuer_url"></a> [cluster\_oidc\_issuer\_url](#input\_cluster\_oidc\_issuer\_url) | The oidc url of the eks cluster | `string` | n/a | yes |
+| <a name="input_cluster_oidc_issuer_arn"></a> [cluster\_oidc\_issuer\_arn](#input\_cluster\_oidc\_issuer\_arn) | The oidc issuer arn of the eks cluster | `string` | n/a | yes |
 | <a name="input_create_efs_access_policy"></a> [create\_efs\_access\_policy](#input\_create\_efs\_access\_policy) | Enable/disable creation of EFS access policy | `bool` | `true` | no |
 | <a name="input_create_efs_iam_role"></a> [create\_efs\_iam\_role](#input\_create\_efs\_iam\_role) | Enable/disable creation of IAM role for EFS | `bool` | `true` | no |
 | <a name="input_disable_default_tags"></a> [disable\_default\_tags](#input\_disable\_default\_tags) | Disable the default tag for the EFSs. Used in cases where only certain tags are allowed | `bool` | `false` | no |
 | <a name="input_efs_access_policy_prefix_enable_override"></a> [efs\_access\_policy\_prefix\_enable\_override](#input\_efs\_access\_policy\_prefix\_enable\_override) | Enable/disable override of the EFS access policy. When enabled, the EFS access policy will be set to the value of efs\_access\_policy\_prefix\_override\_name | `bool` | `false` | no |
 | <a name="input_efs_access_policy_prefix_override_name"></a> [efs\_access\_policy\_prefix\_override\_name](#input\_efs\_access\_policy\_prefix\_override\_name) | The name of the EFS access policy. This will be used only when efs\_access\_policy\_prefix\_enable\_override is set to true | `string` | `""` | no |
-| <a name="input_efs_iam_role_additional_policy_arns"></a> [efs\_iam\_role\_additional\_policy\_arns](#input\_efs\_iam\_role\_additional\_policy\_arns) | Additional policy ARNs to attach to the EFS IAM role | `list(string)` | `[]` | no |
+| <a name="input_efs_iam_role_additional_policies"></a> [efs\_iam\_role\_additional\_policies](#input\_efs\_iam\_role\_additional\_policies) | Additional policies to attach to the EFS IAM role. Example { s3\_access = "arn:aws:iam::aws:policy/S3FullAccess" } | `map(string)` | `{}` | no |
 | <a name="input_efs_iam_role_enable_override"></a> [efs\_iam\_role\_enable\_override](#input\_efs\_iam\_role\_enable\_override) | Enable/disable override of the EFS IAM role name. When enabled, the EFS IAM role name will be set to the value of efs\_iam\_role\_override\_name | `bool` | `false` | no |
 | <a name="input_efs_iam_role_override_name"></a> [efs\_iam\_role\_override\_name](#input\_efs\_iam\_role\_override\_name) | The name of the EFS IAM role. This will be used only when efs\_iam\_role\_enable\_override is set to true | `string` | `""` | no |
 | <a name="input_efs_iam_role_permissions_boundary_arn"></a> [efs\_iam\_role\_permissions\_boundary\_arn](#input\_efs\_iam\_role\_permissions\_boundary\_arn) | ARN of the permissions boundary for the EFS IAM role | `string` | `""` | no |
+| <a name="input_efs_iam_role_use_name_prefix"></a> [efs\_iam\_role\_use\_name\_prefix](#input\_efs\_iam\_role\_use\_name\_prefix) | Use name prefix for the EFS IAM role | `bool` | `false` | no |
 | <a name="input_efs_kms_key_arn"></a> [efs\_kms\_key\_arn](#input\_efs\_kms\_key\_arn) | The KMS key ARN to use for EFS | `string` | `null` | no |
 | <a name="input_efs_node_iam_role_arn"></a> [efs\_node\_iam\_role\_arn](#input\_efs\_node\_iam\_role\_arn) | The node IAM role ARN being used by the EFS daemonset | `string` | n/a | yes |
 | <a name="input_enable_backup_policy"></a> [enable\_backup\_policy](#input\_enable\_backup\_policy) | Enable EFS backup policy | `bool` | `true` | no |
