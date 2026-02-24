@@ -98,7 +98,7 @@ data "aws_iam_policy_document" "efs_file_system_policy" {
 
 module "efs" {
   source  = "cloudposse/efs/aws"
-  version = "1.2.1"
+  version = "1.5.0"
 
   region           = var.region
   vpc_id           = var.vpc_id
