@@ -2,9 +2,7 @@
 
 
 module "iam_assumable_role_admin" {
-  count = var.create_efs_iam_role ? 1 : 0
-  # source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
-  # version = "5.27.0"
+  count           = var.create_efs_iam_role ? 1 : 0
   source          = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts"
   version         = "6.2.3"
   create          = true
