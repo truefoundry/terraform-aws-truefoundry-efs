@@ -56,10 +56,10 @@ variable "efs_iam_role_override_name" {
   default     = ""
 }
 
-variable "efs_iam_role_additional_policy_arns" {
-  description = "Additional policy ARNs to attach to the EFS IAM role"
-  type        = list(string)
-  default     = []
+variable "efs_iam_role_additional_policies" {
+  description = "Additional policies to attach to the EFS IAM role. Example { s3_access = \"arn:aws:iam::aws:policy/S3FullAccess\" }"
+  type        = map(string)
+  default     = {}
 }
 
 variable "efs_iam_role_permissions_boundary_arn" {
@@ -72,6 +72,12 @@ variable "existing_efs_iam_role_arn" {
   description = "ARN of the existing EFS IAM role. This will be used only when create_efs_iam_role is set to false"
   type        = string
   default     = ""
+}
+
+variable "efs_iam_role_use_name_prefix" {
+  description = "Use name prefix for the EFS IAM role"
+  type        = bool
+  default     = false
 }
 
 variable "create_efs_access_policy" {
@@ -144,8 +150,8 @@ variable "efs_kms_key_arn" {
   default     = null
 }
 
-variable "cluster_oidc_issuer_url" {
-  description = "The oidc url of the eks cluster"
+variable "cluster_oidc_issuer_arn" {
+  description = "The oidc issuer arn of the eks cluster"
   type        = string
 }
 
