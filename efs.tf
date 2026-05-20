@@ -7,6 +7,7 @@ resource "aws_iam_policy" "efs" {
 }
 
 resource "aws_efs_file_system_policy" "this" {
+  count                              = var.create_efs_file_system_policy ? 1 : 0
   file_system_id                     = module.efs.id
   bypass_policy_lockout_safety_check = false
   policy                             = data.aws_iam_policy_document.efs_file_system_policy.json
@@ -124,4 +125,9 @@ module "efs" {
 moved {
   from = aws_iam_policy.efs
   to   = aws_iam_policy.efs[0]
+}
+
+moved {
+  from = aws_efs_file_system_policy.this
+  to   = aws_efs_file_system_policy.this[0]
 }
