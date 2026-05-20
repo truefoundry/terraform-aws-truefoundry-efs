@@ -38,6 +38,7 @@ Truefoundry AWS EFS Module
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | EKS Cluster Name | `string` | n/a | yes |
 | <a name="input_cluster_oidc_issuer_arn"></a> [cluster\_oidc\_issuer\_arn](#input\_cluster\_oidc\_issuer\_arn) | The oidc issuer arn of the eks cluster | `string` | n/a | yes |
 | <a name="input_create_efs_access_policy"></a> [create\_efs\_access\_policy](#input\_create\_efs\_access\_policy) | Enable/disable creation of EFS access policy | `bool` | `true` | no |
+| <a name="input_create_efs_file_system_policy"></a> [create\_efs\_file\_system\_policy](#input\_create\_efs\_file\_system\_policy) | Enable/disable creation of EFS file system policy | `bool` | `true` | no |
 | <a name="input_create_efs_iam_role"></a> [create\_efs\_iam\_role](#input\_create\_efs\_iam\_role) | Enable/disable creation of IAM role for EFS | `bool` | `true` | no |
 | <a name="input_disable_default_tags"></a> [disable\_default\_tags](#input\_disable\_default\_tags) | Disable the default tag for the EFSs. Used in cases where only certain tags are allowed | `bool` | `false` | no |
 | <a name="input_efs_access_policy_prefix_enable_override"></a> [efs\_access\_policy\_prefix\_enable\_override](#input\_efs\_access\_policy\_prefix\_enable\_override) | Enable/disable override of the EFS access policy. When enabled, the EFS access policy will be set to the value of efs\_access\_policy\_prefix\_override\_name | `bool` | `false` | no |
