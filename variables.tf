@@ -137,6 +137,13 @@ variable "performance_mode" {
   }
 }
 
+
+variable "create_efs_file_system_policy" {
+  description = "Enable/disable creation of EFS file system policy"
+  type        = bool
+  default     = true
+}
+
 variable "enable_backup_policy" {
   description = "Enable EFS backup policy"
   type        = bool
