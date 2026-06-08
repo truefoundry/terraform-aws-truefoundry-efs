@@ -168,7 +168,7 @@ variable "efs_node_iam_role_arn" {
 }
 
 variable "disable_default_tags" {
-  description = "Disable the default tag for the EFSs. Used in cases where only certain tags are allowed"
+  description = "Disable the TrueFoundry module-injected audit tags (truefoundry-*); only var.tags is applied. Does NOT affect the AWS provider default_tags."
   type        = bool
   default     = false
 }
