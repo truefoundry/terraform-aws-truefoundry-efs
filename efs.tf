@@ -85,7 +85,7 @@ data "aws_iam_policy_document" "efs_file_system_policy" {
     effect  = "Allow"
     actions = ["elasticfilesystem:ClientMount", "elasticfilesystem:ClientWrite", "elasticfilesystem:ClientRootAccess"]
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = compact([
         var.efs_node_iam_role_arn,
         var.create_efs_iam_role ? module.iam_assumable_role_admin[0].arn : var.existing_efs_iam_role_arn
