@@ -86,7 +86,10 @@ data "aws_iam_policy_document" "efs_file_system_policy" {
     actions = ["elasticfilesystem:ClientMount", "elasticfilesystem:ClientWrite", "elasticfilesystem:ClientRootAccess"]
     principals {
       type        = "AWS"
-      identifiers = [var.efs_node_iam_role_arn]
+      identifiers = compact([
+        var.efs_node_iam_role_arn,
+        var.create_efs_iam_role ? module.iam_assumable_role_admin[0].arn : var.existing_efs_iam_role_arn
+      ])
     }
     condition {
       test     = "Bool"
